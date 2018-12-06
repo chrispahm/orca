@@ -2,6 +2,13 @@
 
 fc-cache -v /usr/share/fonts/user
 
+# Move any certificates in data directory to /etc/ssl/certs
+if [[ -d /data/ssl/ ]]; then
+  echo "Adding custom certificates..."
+  cp /data/ssl/* /usr/local/share/ca-certificates/
+  update-ca-certificates
+fi
+
 BUILD_DIR=/var/www/image-exporter/build
 if [[ -n "${PLOTLY_JS_SRC}" ]]; then
   # Fetch plotly js bundle and save it locally:
